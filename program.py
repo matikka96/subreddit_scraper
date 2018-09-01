@@ -9,11 +9,11 @@ dropbox_token = ''                          ## insert dropbox token of your acco
 ### Authorize, Select subreddit w. sort settings ### ----------------
 def authenticaton():
     try:
-        reddit = praw.Reddit(client_id = 'lYDJQDb5uVhpqg',
-                             client_secret = 'uV5YiUui5ohYlXbdiRnrK6UwMKc',
-                             username = 'matikka96',
-                             password = 'muumipappa69',
-                             user_agent = 'hahaha')
+        reddit = praw.Reddit(client_id = '',
+                             client_secret = '',
+                             username = '',
+                             password = '',
+                             user_agent = '')
 
         subreddit = reddit.subreddit('CryptoCurrency').new(limit=1000)  ## Subreddit name here
         return subreddit                                                ## Return subreddit ovject
