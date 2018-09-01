@@ -1,9 +1,27 @@
-## REMEMBER TO SET PARAMETERS IN SECTION "RUN PROGRAM"
-
 import datetime, time, praw, sqlite3, json, urllib.request, dropbox
 
-### Parsing data from CoinMarketCap ### -----------------------------
+### PARAMETERS ### --------------------------------------------------
+interval = 86400                            ## For how old posts script is scanning for? [s]
+db_name = "database_d.db"                   ## Database name for saving
+log_name = "log_d.txt"                      ## logfile name for saving
+dropbox_token = ''                          ## insert dropbox token of your account
 
+### Authorize, Select subreddit w. sort settings ### ----------------
+def authenticaton():
+    try:
+        reddit = praw.Reddit(client_id = 'lYDJQDb5uVhpqg',
+                             client_secret = 'uV5YiUui5ohYlXbdiRnrK6UwMKc',
+                             username = 'matikka96',
+                             password = 'muumipappa69',
+                             user_agent = 'hahaha')
+
+        subreddit = reddit.subreddit('CryptoCurrency').new(limit=1000)  ## Subreddit name here
+        return subreddit                                                ## Return subreddit ovject
+    except:
+        display("[ERROR] Authentication request.\n")
+
+
+### Parsing data from CoinMarketCap ### -----------------------------
 def parse_cmc():
     try:
         cmc_url = 'https://api.coinmarketcap.com/v1/ticker/?limit=300'
@@ -15,7 +33,7 @@ def parse_cmc():
     except:
         display("[ERROR]: During parsing data from CMC")
 
-# Creating library: key = ticker, value = name
+# Creating library  (key = ticker, value = name)
 def create_dict(cmc):
     exceptions = ["OK", "FUN", "PRO", "ATM", "LINK", "TIME", "SHIFT",
                   "ST", "DAT", "SC", "POLL", "LA", "KORE", "PRE", "MED",
@@ -44,8 +62,7 @@ def get_price(name, cmc):
 ### Upload to Dropbox ### -------------------------------------------
 
 def dropbox_upload(filename, destiantion):
-    token = 'eqg5tu9rCjcAAAAAAAAD7FWNwuOBojYi5L-FsdRzJ5CMG2bA9ewfM9ILF7o_PVIP'
-    d = dropbox.Dropbox(token)
+    d = dropbox.Dropbox(dropbox_token)
     file = open(filename, "rb")        ## Open file
     d.files_upload(file.read(), destiantion, mode=dropbox.files.WriteMode.overwrite)
 
@@ -68,23 +85,7 @@ def display(text):
     print(text)
     file.write(text+"\n")
 
-### Authorize, Select subreddit w. sort settings ### ----------------
-
-def authenticaton():
-    try:
-        reddit = praw.Reddit(client_id = 'lYDJQDb5uVhpqg',
-                             client_secret = 'uV5YiUui5ohYlXbdiRnrK6UwMKc',
-                             username = 'matikka96',
-                             password = 'muumipappa69',
-                             user_agent = 'hahaha')
-
-        subreddit = reddit.subreddit('CryptoCurrency').new(limit=1000)
-        return subreddit            ## Return subreddit ovject
-    except:
-        display("[ERROR] Authentication request.\n")
-
 ### Saving titles (last 24h) in to title_list ### -------------------
-
 def save_titles(subreddit, interval):
     counter = 1
     title_list = []
@@ -135,12 +136,6 @@ def scan_titles(coins, title_list):
     conn.commit()
     display("*** DATABASE UPDATED \t\t[{}] Coin mentions".format(total_mentions))
 
-
-### PARAMETERS ### --------------------------------------------------
-
-interval = 86400                            ## Run interval [s]
-db_name = "database_d.db"                   ## Database name for saving
-log_name = "log_d.txt"                      ## logfile name for saving
 
 ### RUN PROGRAM ### -------------------------------------------------
 
