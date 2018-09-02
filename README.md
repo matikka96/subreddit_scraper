@@ -12,8 +12,9 @@ Crontab example from Raspberry Pi:
 Have in mind that interval parameter and crontab must be configured accordingly in order for script to function properly. For example if you want program to run once a day use following setting:
 - ```interval = 86400```
 - ```*/10 * * * * cd```
+Script creates database file where it stores all the data, and log file where it stores statistics and errors.
 
-## Parameters & authentication
+## Parameters and authentication
 Confuguration is on lines 3-16 of "program.py" file. Here is the quote:
 ```
 ### PARAMETERS ### --------------------------------------------------
@@ -31,3 +32,7 @@ def authenticaton():
                              password = '',
                              user_agent = '')
 ```
+
+## Result
+Here is the example of using data gathered from the script. 
+![Screenshot](screenshot.jpg)
