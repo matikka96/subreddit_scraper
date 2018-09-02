@@ -34,5 +34,10 @@ def authenticaton():
 ```
 
 ## Result
-Here is the example of using data gathered from the script. 
+Here is the example of using data gathered from the script.
 ![Screenshot](screenshot.jpg)
+**y-axis**
+Yellow line:	LTC price [USD]
+Blue line:	 	LTC total mentions in 'CryptoCurrency' subreddit
+**x-axis**
+datetime
