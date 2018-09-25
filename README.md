@@ -1,4 +1,4 @@
-# subreddit_scanner_script
+# subreddit_scraper
 
 ## Summary
 The main function of the script is to scan for the cryptocurrency coin mentions in the "CryptoCurrency" subreddit and save data into the file. Data can then be analyzed or reused for any kind of statistical purpose. Program has been built to run on Raspberry Pi Zero autonomously. It uploads data and log file on specified Dropbox account so that user can remotely analyze data and check for the errors and malfunctions. 
